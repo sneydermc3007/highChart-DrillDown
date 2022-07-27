@@ -166,7 +166,7 @@ export class AppComponent {
         y: 2,
         drilldown: 'two'
       }, {
-        name: 'Sensor 4',
+        name: 'Sensor 3',
         y: 1,
         drilldown: 'three'
       }]
