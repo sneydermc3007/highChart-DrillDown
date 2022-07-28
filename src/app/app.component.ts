@@ -5,7 +5,7 @@ import * as Highcharts from 'highcharts';
 import Drilldown  from "highcharts/modules/drilldown";
   Drilldown(Highcharts)
 
-import { DataGraficaService } from './services/data-grafica.service';
+import { DataGraficaService, Data_DrillDown } from './services/data-grafica.service';
 
 @Component({
   selector: 'app-root',
@@ -66,7 +66,7 @@ export class AppComponent implements OnInit{
 
   // } as Highcharts.DrilldownOptions;
 
-  loading = true
+  loading: boolean = true
   Highcharts: typeof Highcharts = Highcharts;
 
   public constructor(private _dataService: DataGraficaService){ }
@@ -75,11 +75,18 @@ export class AppComponent implements OnInit{
     this._dataService.prueba()
   }
 
+  getDataDrill(): Data_DrillDown[] {
+    return this._dataService.getDataDrillDown()
+  }
+
+  drill_prueba = this.getDataDrill()
+
   chartOptions: Highcharts.Options = {
     chart: {
       events: {
         drilldown: () => {
           //console.log(this.drillDownData)
+          console.log(this.drill_prueba)
         }
       }
     },
@@ -104,9 +111,11 @@ export class AppComponent implements OnInit{
       type: 'column',
       name: 'Sensores',
       colorByPoint: true,
-      data: this._dataService.getData()
+      data: this._dataService.getDataSeries()
     }],
     //drilldown: this.drillDownData
+    //drilldown: this.drillDownData
+    //drilldown: this.drill_prueba as Highcharts.DrilldownOptions
   }
 
 }
