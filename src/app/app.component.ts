@@ -1,138 +1,85 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import * as Highcharts from 'highcharts';
 
 import Drilldown  from "highcharts/modules/drilldown";
   Drilldown(Highcharts)
 
+import { DataGraficaService } from './services/data-grafica.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'mesaAyuda';
 
+  // drillDownData = {
+  //     series: [
+  //       {
+  //         type: 'column',
+  //         id: 'one',
+  //         data: [{
+  //           name: 'Enero',
+  //           y: 4,
+  //           drilldown: 'january_1'
+  //         }, {
+  //           name: 'Febrero',
+  //           y: 2,
+  //           drilldown: 'february_1'
+  //         }, {
+  //           name: 'Marzo',
+  //           y: 1,
+  //           drilldown: 'march_1'
+  //         }, {
+  //           name: 'Abril',
+  //           y: 2,
+  //           drilldown: 'april_1'
+  //         }, {
+  //           name: 'Junio',
+  //           y: 1,
+  //           drilldown: 'june_1'
+  //         }]
+  //       }, {
+  //         type: 'column',
+  //         id: 'two',
+  //         data: [{
+  //           name: 'Enero',
+  //           y: 4,
+  //           drilldown: 'january_2'
+  //         }, {
+  //           name: 'Marzo',
+  //           y: 2,
+  //           drilldown: 'march_2'
+  //         }],
+  //       }, {
+  //         type: 'column',
+  //         id: 'three',
+  //         data: [{
+  //           name: 'Octubre',
+  //           y: 1,
+  //           drilldown: 'october_3'
+  //         }]
+  //       },
+  //   ]
+
+  // } as Highcharts.DrilldownOptions;
+
+  loading = true
   Highcharts: typeof Highcharts = Highcharts;
 
-  drillDownData = {
-      series: [
-        {
-          type: 'column',
-          id: 'one',
-          data: [{
-            name: 'Enero',
-            y: 4,
-            drilldown: 'january_1'
-          }, {
-            name: 'Febrero',
-            y: 2,
-            drilldown: 'february_1'
-          }, {
-            name: 'Marzo',
-            y: 1,
-            drilldown: 'march_1'
-          }, {
-            name: 'Abril',
-            y: 2,
-            drilldown: 'april_1'
-          }, {
-            name: 'Junio',
-            y: 1,
-            drilldown: 'june_1'
-          }]
-        }, {
-          type: 'column',
-          id: 'two',
-          data: [{
-            name: 'Enero',
-            y: 4,
-            drilldown: 'january_2'
-          }, {
-            name: 'Marzo',
-            y: 2,
-            drilldown: 'march_2'
-          }],
-        }, {
-          type: 'column',
-          id: 'three',
-          data: [{
-            name: 'Octubre',
-            y: 1,
-            drilldown: 'october_3'
-          }]
-        },
+  public constructor(private _dataService: DataGraficaService){ }
 
-      //SubNivel 2
-      {
-        type: 'pie',
-        id: 'january_1',
-        data: [
-          ['S1', 2],
-          ['S2', 1],
-          ['S3', 6],
-          ['S4', 4]
-        ]
-      }, {
-        type: 'pie',
-        id: 'february_1',
-        data: [
-          ['S2', 1],
-          ['S3', 5]
-        ]
-      }, {
-        type: 'pie',
-        id: 'march_1',
-        data: [
-          ['S4', 7]
-        ]
-      }, {
-        type: 'pie',
-        id: 'april_1',
-        data: [
-          ['S1', 3],
-          ['S3', 2]
-        ]
-      }, {
-        type: 'pie',
-        id: 'june_1',
-        data: [
-          ['S2', 5]
-        ]
-      }, {
-        type: 'pie',
-        id: 'january_2',
-        data: [
-          ['S1', 5],
-          ['S2', 7],
-          ['S3', 2],
-          ['S4', 4]
-        ]
-      }, {
-        type: 'pie',
-        id: 'march_2',
-        data: [
-          ['S3', 5],
-          ['S4', 7]
-        ],
-      }, {
-        type: 'pie',
-        id: 'october_3',
-        data: [
-          [
-            ['S2', 6]
-          ]
-        ]
-      }
-    ]
-
-  } as Highcharts.DrilldownOptions;
+  ngOnInit(): void {
+    this._dataService.prueba()
+  }
 
   chartOptions: Highcharts.Options = {
     chart: {
       events: {
         drilldown: () => {
-          console.log(this.drillDownData)
+          //console.log(this.drillDownData)
         }
       }
     },
@@ -157,22 +104,9 @@ export class AppComponent {
       type: 'column',
       name: 'Sensores',
       colorByPoint: true,
-      data: [{
-        name: 'Sensor 1',
-        y: 5,
-        drilldown: 'one'
-      }, {
-        name: 'Sensor 2',
-        y: 2,
-        drilldown: 'two'
-      }, {
-        name: 'Sensor 3',
-        y: 1,
-        drilldown: 'three'
-      }]
+      data: this._dataService.getData()
     }],
-    drilldown: this.drillDownData
-
+    //drilldown: this.drillDownData
   }
 
 }
