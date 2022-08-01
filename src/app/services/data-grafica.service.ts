@@ -15,7 +15,8 @@ interface DataSeries {
 }
 
 export interface Data_DrillDown {
-  id?: string | number
+  id?: string | number,
+  type: string,
   data?: DataSeries[]
 }
 
@@ -46,9 +47,10 @@ export class DataGraficaService {
     }
   ]
 
-  public sub_data: Data_DrillDown[] = [ //Falta el type
+  public sub_data: Data_DrillDown[] = [
     {
       id: 'one',
+      type: 'column',
       data: [
         {
           name: 'Enero',
@@ -74,6 +76,7 @@ export class DataGraficaService {
       ]
     }, {
       id: 'two',
+      type: 'column',
       data: [
         {
           name: 'Enero',
@@ -87,6 +90,7 @@ export class DataGraficaService {
       ]
     }, {
       id: 'three',
+      type: 'column',
       data: [
         {
           name: 'Octubre',

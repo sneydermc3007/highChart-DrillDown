@@ -75,6 +75,7 @@ export class AppComponent implements OnInit{
     this._dataService.prueba()
   }
 
+  // Solo sirve para mostrar el json en consola
   getDataDrill(): Data_DrillDown[] {
     return this._dataService.getDataDrillDown()
   }
@@ -114,8 +115,10 @@ export class AppComponent implements OnInit{
       data: this._dataService.getDataSeries()
     }],
     //drilldown: this.drillDownData
-    //drilldown: this.drillDownData
     //drilldown: this.drill_prueba as Highcharts.DrilldownOptions
+    drilldown: {
+      series: this._dataService.getDataDrillDown()
+    }
   }
 
 }
