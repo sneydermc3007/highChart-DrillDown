@@ -6,3 +6,19 @@
 
   style="width: 100%; height: 400px; display: block;"
 ></highcharts-chart>
+
+<!-- Prueba Builder -->
+<header>My header</header>
+<router-outlet></router-outlet>
+<footer>My footer</footer>
+
+<!-- <builder-component
+  *ngIf="!noBuilderPageForUrl"
+  model="page"
+  (load)="noBuilderPageForUrl = $event ? false : true"
+  (error)="noBuilderPageForUrl = true"
+>
+  <div class="spinner"></div>
+</builder-component> -->
+
+<builder-component name="prueba-landing-page"></builder-component>

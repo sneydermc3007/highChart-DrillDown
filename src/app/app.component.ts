@@ -14,60 +14,11 @@ import { DataGraficaService, Data_DrillDown } from './services/data-grafica.serv
 })
 export class AppComponent implements OnInit{
   title = 'mesaAyuda';
-
-  // drillDownData = {
-  //     series: [
-  //       {
-  //         type: 'column',
-  //         id: 'one',
-  //         data: [{
-  //           name: 'Enero',
-  //           y: 4,
-  //           drilldown: 'january_1'
-  //         }, {
-  //           name: 'Febrero',
-  //           y: 2,
-  //           drilldown: 'february_1'
-  //         }, {
-  //           name: 'Marzo',
-  //           y: 1,
-  //           drilldown: 'march_1'
-  //         }, {
-  //           name: 'Abril',
-  //           y: 2,
-  //           drilldown: 'april_1'
-  //         }, {
-  //           name: 'Junio',
-  //           y: 1,
-  //           drilldown: 'june_1'
-  //         }]
-  //       }, {
-  //         type: 'column',
-  //         id: 'two',
-  //         data: [{
-  //           name: 'Enero',
-  //           y: 4,
-  //           drilldown: 'january_2'
-  //         }, {
-  //           name: 'Marzo',
-  //           y: 2,
-  //           drilldown: 'march_2'
-  //         }],
-  //       }, {
-  //         type: 'column',
-  //         id: 'three',
-  //         data: [{
-  //           name: 'Octubre',
-  //           y: 1,
-  //           drilldown: 'october_3'
-  //         }]
-  //       },
-  //   ]
-
-  // } as Highcharts.DrilldownOptions;
-
   loading: boolean = true
   Highcharts: typeof Highcharts = Highcharts;
+
+  noBuilderPageForUrl: boolean = false;
+
 
   public constructor(private _dataService: DataGraficaService){ }
 
@@ -86,7 +37,6 @@ export class AppComponent implements OnInit{
     chart: {
       events: {
         drilldown: () => {
-          //console.log(this.drillDownData)
           console.log(this.drill_prueba)
         }
       }
@@ -114,8 +64,6 @@ export class AppComponent implements OnInit{
       colorByPoint: true,
       data: this._dataService.getDataSeries()
     }],
-    //drilldown: this.drillDownData
-    //drilldown: this.drill_prueba as Highcharts.DrilldownOptions
     drilldown: {
       series: this._dataService.getDataDrillDown()
     }
